@@ -1,14 +1,15 @@
 %Foam Reactions File based on the mech.def file for the cracmm1_aq mechanism.
-% # of species   =  178
+% # of species   =  179
 % # of reactions =  506
 % file created by Bryan Place
+% 20230919 Nash Skipper - make CH4 a species in the mechanism instead of a constant
 
 % Set constant species by scaling to air number density
 % Note, these are assumptions within CMAQ that are adopted here.
 N2  =  0.780800000.*M;
 O2  =  0.209500000.*M;
 H2  =  0.000000560.*M;
-CH4 =  0.000001850.*M;
+%CH4 =  0.000001850.*M;
 
 
 SpeciesToAdd = {...
@@ -47,7 +48,7 @@ SpeciesToAdd = {...
 'VROCP2OXY2'; 'VROCP3ALKP2'; 'VROCP1OXY1'; 'VROCP2ALKP2'; 'VROCP1ALKP2'; ...
 'VROCN1OXY1'; 'HC10P2'; 'VROCP6ARO'; 'VROCP6AROP'; 'VROCN2OXY4'; ...
 'VROCN1OXY3'; 'VROCP5ARO'; 'VROCP5AROP'; 'NAPH'; 'NAPHP'; ...
-'VROCN2OXY8'; 'VROCP5OXY1'; 'VROCP6OXY1'; };
+'VROCN2OXY8'; 'VROCP5OXY1'; 'VROCP6OXY1'; 'CH4'};
 
 
 AddSpecies
@@ -695,9 +696,9 @@ fHO2(i)=fHO2(i)+  1.000;
 %  75, <R071>
 i=i+1;
 Rnames{  75} = 'HO + CH4 = MO2 ';
-k(:,i) = (  2.4500E-12.*exp( -1.7750E+03./T) ).*CH4; 
-Gstr{i,   1}='HO';
-fHO(i)=fHO(i)-1.0;
+k(:,i) = (  2.4500E-12.*exp( -1.7750E+03./T) ); 
+Gstr{i,   1}='HO'; Gstr{i,   2}='CH4';
+fHO(i)=fHO(i)-1.0; fCH4(i)=fCH4(i)-1.0;
 fMO2(i)=fMO2(i)+  1.000;
 
 %  76, <R072>
